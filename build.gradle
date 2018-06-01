@@ -13,9 +13,10 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
 
 group = 'com.crud'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.1-BETA'
 sourceCompatibility = 1.8
 
 repositories {
@@ -30,5 +31,7 @@ dependencies {
 	compile('mysql:mysql-connector-java')
 
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
 }
