@@ -23,7 +23,7 @@ public class TrelloController {
 
         trelloBoards.stream()
                 .filter(trelloBoardDto -> trelloBoardDto.getId() != null && trelloBoardDto.getName() != null)
-                .filter(trelloBoardDto -> trelloBoardDto.getName().equalsIgnoreCase("kodilla"))
+                .filter(trelloBoardDto -> trelloBoardDto.getName().toLowerCase().contains("kodilla"))
                 .forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
     }
 }
