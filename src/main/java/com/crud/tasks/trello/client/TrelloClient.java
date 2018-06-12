@@ -3,9 +3,12 @@ package com.crud.tasks.trello.client;
 import com.crud.tasks.domain.trello.card.CreatedTrelloCardDto;
 import com.crud.tasks.domain.trello.board.TrelloBoardDto;
 import com.crud.tasks.domain.trello.card.TrelloCardDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -18,8 +21,10 @@ import java.util.Optional;
 @Service
 public class TrelloClient {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrelloClient.class);
+
     @Value("${trello.api.endpoint.prod}")
-    private String trelloApiEndpoint ;
+    private String trelloApiEndpoint;
 
     @Value("${trello.app.key}")
     private String trelloAppKey;
@@ -41,10 +46,14 @@ public class TrelloClient {
     }
 
     public List<TrelloBoardDto> getTrelloBoards() {
+        try {
+            TrelloBoardDto[] boardResponse = restTemplate.getForObject(getTrelloBoardsUrl(), TrelloBoardDto[].class);
 
-        TrelloBoardDto[] boardResponse = restTemplate.getForObject(getTrelloBoardsUrl(), TrelloBoardDto[].class);
-
-        return Arrays.asList(Optional.ofNullable(boardResponse).orElse(new TrelloBoardDto[0]));
+            return Arrays.asList(Optional.ofNullable(boardResponse).orElse(new TrelloBoardDto[0]));
+        } catch (RestClientException e) {
+            LOGGER.error(e.getMessage(), e);
+            return new ArrayList<>();
+        }
     }
 
     private URI getCreateNewCardUrl(TrelloCardDto trelloCardDto) {
