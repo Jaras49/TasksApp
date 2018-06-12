@@ -1,4 +1,4 @@
-package com.crud.tasks.domain.trello;
+package com.crud.tasks.domain.trello.card;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
