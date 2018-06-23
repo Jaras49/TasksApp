@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class EmailScheluder {
+public class EmailScheduler {
 
     private static final String SUBJECT = "Tasks: Daily information";
     @Autowired
@@ -23,10 +23,9 @@ public class EmailScheluder {
 
     @Autowired
     private AdminConfig adminConfig;
-
-    @Scheduled(cron = "0 0 10 * * *")
+//cron = "0 0 10 * * *"
+    @Scheduled(fixedDelay = 10000)
     public void sentInformationEmail() {
-        taskRepository.findAll();
         simpleEmailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT, buildMailMessage()));
     }
 
@@ -36,12 +35,14 @@ public class EmailScheluder {
         StringBuilder sb = new StringBuilder();
         sb.append("Currently in database you got: ");
         sb.append(size);
-        sb.append("tasks\n");
+        sb.append(" tasks\n");
         sb.append("Current tasks: \n");
         for (Task task : all) {
             sb.append("Title: ");
             sb.append(task.getTitle());
-            sb.append("Content: ");
+            sb.append(" ; ");
+            sb.append(" Content: ");
+            sb.append(task.getContent());
             sb.append("\n");
         }
         return sb.toString();
