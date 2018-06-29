@@ -51,14 +51,9 @@ public class EmailScheduler {
     }
 
     private String buildMailMessage(List<Task> tasks) {
-        long size = taskRepository.count();
+        long size = tasks.size();
 
-        String taskWord;
-        if (tasks.size() == 1) {
-            taskWord = TASK;
-        } else {
-            taskWord = TASKS;
-        }
+        String taskWord = getTaskWord(size);
 
         StringBuilder sb = new StringBuilder();
         sb.append(IN_DATABASE).append(size).append(WHITE_SPACE).append(taskWord).append(NEW_LINE);
@@ -68,5 +63,15 @@ public class EmailScheduler {
             sb.append(NEW_LINE);
         }
         return sb.toString();
+    }
+
+    private String getTaskWord(long size) {
+        String taskWord;
+        if (size == 1) {
+            taskWord = TASK;
+        } else {
+            taskWord = TASKS;
+        }
+        return taskWord;
     }
 }
