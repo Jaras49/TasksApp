@@ -1,13 +1,17 @@
 package com.crud.tasks.domain.mail;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
 @Getter
+@ToString
+@EqualsAndHashCode
 public class Mail {
 
     private String mailTo;
