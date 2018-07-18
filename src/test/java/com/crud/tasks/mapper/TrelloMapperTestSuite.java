@@ -67,8 +67,8 @@ public class TrelloMapperTestSuite {
         List<TrelloBoardDto> trelloBoardDtos = trelloMapper.mapToBoardsDto(Collections.singletonList(trelloBoard));
 
         //Then
-        assertEquals("1", trelloBoardDtos.get(0).getName());
-        assertEquals("test", trelloBoardDtos.get(0).getId());
+        assertEquals("1", trelloBoardDtos.get(0).getId());
+        assertEquals("test", trelloBoardDtos.get(0).getName());
         assertEquals("2", trelloBoardDtos.get(0).getLists().get(0).getId());
         assertEquals("list", trelloBoardDtos.get(0).getLists().get(0).getName());
         assertFalse(trelloBoardDtos.get(0).getLists().get(0).isClosed());
