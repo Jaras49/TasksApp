@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<h1>First page</h1>
+<!--/*thymesVar id="variable" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+<span th:text="${variable}"></span>
+<!--/*thymesVar id="one" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+<!--/*thymesVar id="two" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+<br><span th:text="${one} + ${two}"></span></br>
+</body>
+</html>

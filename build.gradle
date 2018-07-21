@@ -34,6 +34,7 @@ dependencies {
 	compile('io.springfox:springfox-swagger-ui:2.7.0')
 	compile('com.google.code.gson:gson:2.8.2')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.5.13.RELEASE'
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
 
 	//providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
