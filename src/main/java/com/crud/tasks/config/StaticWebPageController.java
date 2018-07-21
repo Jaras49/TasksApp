@@ -12,7 +12,7 @@ public class StaticWebPageController {
     @RequestMapping("/")
     public String index(ModelMap model) {
 
-        model.addAttribute("variable", "thymeleaf variable is he");
+        model.addAttribute("variable", "thymeleaf variable is here");
         model.addAttribute("one", 1);
         model.addAttribute("two", 2);
 
