@@ -13,4 +13,10 @@ public class AdminConfig {
 
     @Value("${admin.name}")
     private String adminName;
+
+    @Value("${info.app.name}")
+    private String appName;
+
+    @Value("${info.company.email}")
+    private String appEmail;
 }
