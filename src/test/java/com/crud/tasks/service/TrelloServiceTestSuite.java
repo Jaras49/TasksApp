@@ -88,7 +88,7 @@ public class TrelloServiceTestSuite {
         CreatedTrelloCardDto trelloCard = trelloService.createTrelloCard(trelloCardDto);
 
         //Then
-        verify(simpleEmailService, times(1)).send(new Mail("mail@gmail.com", SUBJECT,
+        verify(simpleEmailService, times(1)).sendMail(new Mail("mail@gmail.com", SUBJECT,
                 "New card: " + "test" + " has been created on your Trello account"));
 
         assertEquals("test", trelloCard.getName());
@@ -107,6 +107,6 @@ public class TrelloServiceTestSuite {
 
         //then
         assertNull(trelloCard);
-        verify(simpleEmailService, times(0)).send(new Mail("", "", ""));
+        verify(simpleEmailService, times(0)).sendMail(new Mail("", "", ""));
     }
 }

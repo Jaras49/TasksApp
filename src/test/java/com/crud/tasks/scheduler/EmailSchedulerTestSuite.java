@@ -56,7 +56,7 @@ public class EmailSchedulerTestSuite {
         emailScheduler.sentInformationEmail();
 
         //Then
-        verify(simpleEmailService, times(1)).send(new Mail("mail@gmail.com", SUBJECT, message));
+        verify(simpleEmailService, times(1)).sendMail(new Mail("mail@gmail.com", SUBJECT, message));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class EmailSchedulerTestSuite {
         emailScheduler.sentInformationEmail();
 
         //Then
-        verify(simpleEmailService, times(1)).send(new Mail("mail@gmail.com", SUBJECT, message));
+        verify(simpleEmailService, times(1)).sendMail(new Mail("mail@gmail.com", SUBJECT, message));
     }
     @Test
     public void shouldSendInformationMailWhenThereAreNoTasks() {
@@ -91,6 +91,6 @@ public class EmailSchedulerTestSuite {
         emailScheduler.sentInformationEmail();
 
         //Then
-        verify(simpleEmailService, times(1)).send(new Mail("mail@gmail.com", SUBJECT, message));
+        verify(simpleEmailService, times(1)).sendMail(new Mail("mail@gmail.com", SUBJECT, message));
     }
 }

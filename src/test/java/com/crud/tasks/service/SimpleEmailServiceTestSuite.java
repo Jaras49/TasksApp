@@ -33,7 +33,7 @@ public class SimpleEmailServiceTestSuite {
         simpleMailMessage.setText(mail.getMessage());
 
         //When
-        simpleEmailService.send(mail);
+        simpleEmailService.sendMail(mail);
 
         //Then
         verify(javaMailSender, times(1)).send(simpleMailMessage);

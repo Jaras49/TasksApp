@@ -26,6 +26,7 @@ public class EmailScheduler {
     private static final String SEMICOLON_WITH_WHITE_SPACES = " ; ";
     private static final String WHITE_SPACE = " ";
     private static final String NEW_LINE = "\n";
+    private static final String WELCOME_MESSAGE = "Hello this is your daily information service !";
 
     @Autowired
     private SimpleEmailService simpleEmailService;
@@ -39,11 +40,8 @@ public class EmailScheduler {
     @Scheduled(cron = "0 0 8 * * *")
     public void sentInformationEmail() {
         List<Task> tasks = taskRepository.findAll();
-        if (!tasks.isEmpty()) {
-            simpleEmailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT, buildMailMessage(tasks)));
-        } else {
-            simpleEmailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT, buildMailMessage()));
-        }
+
+        simpleEmailService.sendMail(new Mail(adminConfig.getAdminMail(), SUBJECT, WELCOME_MESSAGE), tasks);
     }
 
     private String buildMailMessage() {
