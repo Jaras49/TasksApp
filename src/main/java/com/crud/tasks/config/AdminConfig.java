@@ -19,4 +19,7 @@ public class AdminConfig {
 
     @Value("${info.company.email}")
     private String appEmail;
+
+    @Value("${front.app.url}")
+    private String appFrontUrl;
 }
