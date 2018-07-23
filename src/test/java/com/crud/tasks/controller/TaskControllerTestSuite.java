@@ -30,12 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 public class TaskControllerTestSuite {
 
-    private static final String GET_TASKS_URL = "/v1/task/getTasks";
-    private static final String GET_TASK_URL = "/v1/task/getTask";
-    private static final String DELETE_TASK_URL = "/v1/task/deleteTask";
-    private static final String UPDATE_TASK_URL = "/v1/task/updateTask";
-    private static final String CREATE_TASK_URL = "/v1/task/createTask";
-    private static final String TASK_ID = "taskId";
+    private static final String TASKS_URL = "/v1/tasks";
 
     @Autowired
     private MockMvc mockMvc;
@@ -57,7 +52,7 @@ public class TaskControllerTestSuite {
         when(taskMapper.mapToTaskDtoList(Collections.singletonList(task))).thenReturn(Collections.singletonList(taskDto));
 
         //When & Then
-        mockMvc.perform(get(GET_TASKS_URL).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(TASKS_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id", is(1)))
@@ -78,8 +73,7 @@ public class TaskControllerTestSuite {
         when(taskMapper.mapToTaskDto(task.get())).thenReturn(taskDto);
 
         //when & Then
-        mockMvc.perform(get(GET_TASK_URL)
-                .param(TASK_ID, taskId)
+        mockMvc.perform(get(TASKS_URL.concat("/" + taskId))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
@@ -102,8 +96,7 @@ public class TaskControllerTestSuite {
         //When & Then
         expectedException.expectCause(isA(TaskNotFoundException.class));
 
-        mockMvc.perform(get(GET_TASK_URL)
-                .param(TASK_ID, taskId)
+        mockMvc.perform(get(TASKS_URL.concat("/" + taskId))
                 .contentType(MediaType.APPLICATION_JSON));
     }
 
@@ -114,8 +107,7 @@ public class TaskControllerTestSuite {
         String taskId = "1";
 
         //When & Then
-        mockMvc.perform(delete(DELETE_TASK_URL)
-                .param("taskId", taskId)
+        mockMvc.perform(delete(TASKS_URL.concat("/" + taskId))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -135,7 +127,7 @@ public class TaskControllerTestSuite {
         when(taskMapper.mapToTaskDto(task)).thenReturn(taskDto);
 
         //When & Then
-        mockMvc.perform(put(UPDATE_TASK_URL)
+        mockMvc.perform(put(TASKS_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -154,7 +146,7 @@ public class TaskControllerTestSuite {
 
         when(taskMapper.mapToTask(argThat(any(TaskDto.class)))).thenReturn(new Task(1L, "test", "description"));
         //When & Then
-        mockMvc.perform(post(CREATE_TASK_URL)
+        mockMvc.perform(post(TASKS_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))

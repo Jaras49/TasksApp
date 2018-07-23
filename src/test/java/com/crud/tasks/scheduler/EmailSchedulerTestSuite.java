@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 public class EmailSchedulerTestSuite {
 
     private static final String SUBJECT = "Tasks: Daily information";
+    private static final String WELCOME_MESSAGE = "Hello this is your daily information service !";
 
     @InjectMocks
     private EmailScheduler emailScheduler;
@@ -38,7 +39,7 @@ public class EmailSchedulerTestSuite {
     private AdminConfig adminConfig;
 
     @Test
-    public void shouldSendInformationMailWhenThereAreTasks() {
+    public void shouldSendInformationMail() {
 
         //Given
         Task task = new Task(1L, "test", "content");
@@ -47,50 +48,11 @@ public class EmailSchedulerTestSuite {
         when(taskRepository.findAll()).thenReturn(Arrays.asList(task, task1));
         when(adminConfig.getAdminMail()).thenReturn("mail@gmail.com");
 
-        String message = "Currently in database you got: 2 tasks\n" +
-                "Current tasks:\n" +
-                "Title: test ;  Content: content\n" +
-                "Title: title ;  Content: testContent\n";
-
         //When
         emailScheduler.sentInformationEmail();
 
         //Then
-        verify(simpleEmailService, times(1)).send(new Mail("mail@gmail.com", SUBJECT, message));
-    }
-
-    @Test
-    public void shouldSentInformationMailWhenThereIsOneTask() {
-
-        //Given
-        Task task = new Task(1L, "test", "content");
-
-        when(taskRepository.findAll()).thenReturn(Collections.singletonList(task));
-        when(adminConfig.getAdminMail()).thenReturn("mail@gmail.com");
-
-        String message = "Currently in database you got: 1 task\n" +
-                "Current task:\n" +
-                "Title: test ;  Content: content\n";
-
-        //When
-        emailScheduler.sentInformationEmail();
-
-        //Then
-        verify(simpleEmailService, times(1)).send(new Mail("mail@gmail.com", SUBJECT, message));
-    }
-    @Test
-    public void shouldSendInformationMailWhenThereAreNoTasks() {
-
-        //Given
-        when(taskRepository.findAll()).thenReturn(Collections.emptyList());
-        when(adminConfig.getAdminMail()).thenReturn("mail@gmail.com");
-
-        String message = "You dont have any tasks";
-
-        //when
-        emailScheduler.sentInformationEmail();
-
-        //Then
-        verify(simpleEmailService, times(1)).send(new Mail("mail@gmail.com", SUBJECT, message));
+        verify(simpleEmailService, times(1)).sendMail(
+                new Mail("mail@gmail.com", SUBJECT, WELCOME_MESSAGE), Arrays.asList(task, task1));
     }
 }
