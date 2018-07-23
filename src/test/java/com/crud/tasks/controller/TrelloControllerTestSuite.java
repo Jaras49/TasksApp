@@ -32,7 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 public class TrelloControllerTestSuite {
 
-    private static final String GET_TRELLO_BOARDS_URL = "/v1/trello/getTrelloBoards";
+    private static final String GET_TRELLO_BOARDS_URL = "/v1/trello/boards";
+    private static final String CREATE_TRELLO_CARD_URL = "/v1/trello/cards";
 
     @Autowired
     private MockMvc mockMvc;
@@ -94,7 +95,7 @@ public class TrelloControllerTestSuite {
         when(trelloFacade.createCard(argThat(any(TrelloCardDto.class)))).thenReturn(createdTrelloCardDto);
 
         //When & then
-        mockMvc.perform(post("/v1/trello/createTrelloCard")
+        mockMvc.perform(post(CREATE_TRELLO_CARD_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))

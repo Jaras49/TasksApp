@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -60,19 +59,6 @@ public class SimpleEmailService {
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(mailCreatorService.buildDailyEmail(mail.getMessage(), tasks), true);
         };
-    }
-
-    private SimpleMailMessage createMailMessage(final Mail mail) {
-
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo(mail.getMailTo());
-        simpleMailMessage.setSubject(mail.getSubject());
-        simpleMailMessage.setText(mail.getMessage());
-        if (!mail.getToCC().isEmpty()) {
-            simpleMailMessage.setCc(mail.getToCC().toArray(new String[mail.getToCC().size()]));
-        }
-
-        return simpleMailMessage;
     }
 }
 
