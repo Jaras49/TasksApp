@@ -15,6 +15,7 @@ import java.util.List;
 public class MailCreatorService {
 
     private static final String TASKS_NUMBER = "tasks_number";
+
     @Autowired
     @Qualifier("templateEngine")
     private TemplateEngine templateEngine;
